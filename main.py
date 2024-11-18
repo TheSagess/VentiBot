@@ -4,21 +4,28 @@ import datetime
 from discord.ext.commands import ExtensionNotFound, ExtensionFailed
 from dotenv import load_dotenv
 from discord.ext import commands
+from checks import is_owner
 
+#Import Cogs
+from coffe import coffe
+
+# Load Dotenvs
 load_dotenv()
 
+# Set Intents
 intents = discord.Intents.default()  # Sets the default bot intents
 intents.guilds = True
 intents.members = True  # Allows the bot to see members in a guild
 intents.message_content = True  # Allows the bot to see message content
 
+# Set Some Other Varibles
 TOKEN = os.getenv("token")
 COMMAND_PREFIX = "?"  # Sets the bots command prefix for non app commands
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)  # Defines bot
 
-
+# Load Cogs
 async def load_cogs(bot): # Taken out of Vaje Bot [Closed Project of mine]
-    cogs = []  # Ensure these are properly imported
+    cogs = [coffe]  # Ensure these are properly imported
     for cog in cogs:
         if not bot.get_cog(cog.__name__):
             try:
